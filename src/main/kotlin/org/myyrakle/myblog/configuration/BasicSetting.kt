@@ -6,7 +6,7 @@ object BasicSetting
     const val BLOG_NAME = "My Blog"
 
     //블로그 타이틀
-    const val BLOG_TITLE = "Myyrakle's Blog"
+    const val BLOG_TITLE = "Myyrakle's Note"
 
     //관리자명
     const val ADMIN_NAME = "myyrakle"
