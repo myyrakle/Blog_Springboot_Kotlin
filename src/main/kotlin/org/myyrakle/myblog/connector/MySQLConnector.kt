@@ -4,6 +4,9 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 
+import org.myyrakle.myblog.configuration.BasicSetting;
+import javax.persistence.Basic
+
 class MySQLConnector : IDBConnector
 {
     override var connection: Connection? = null
@@ -36,10 +39,10 @@ class MySQLConnector : IDBConnector
 
     companion object
     {
-        private const val DB_NAME = ""
+        private const val DB_NAME = BasicSetting.DB_NAME
         private const val DB_URL = "jdbc:mysql://localhost:3306/"
         private const val DB_PARAMS = "?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=utf8"
-        private const val DB_USERNAME = ""
-        private const val DB_PASSWORD = ""
+        private const val DB_USERNAME = BasicSetting.DB_USERNAME
+        private const val DB_PASSWORD = BasicSetting.DB_PASSWORD
     }
 }

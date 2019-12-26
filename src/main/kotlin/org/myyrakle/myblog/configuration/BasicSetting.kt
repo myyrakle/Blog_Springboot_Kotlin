@@ -19,5 +19,7 @@ object BasicSetting
     const val COPYRIGHT = "By Myyrakle 2019"
     
     //데이터베이스 설정
-
+    const val DB_NAME = "MyBlog"
+    const val DB_USERNAME = "root"
+    const val DB_PASSWORD = "selab"
 }
