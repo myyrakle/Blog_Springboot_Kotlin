@@ -4,12 +4,15 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 
-class MySQLConnector : IDBConnector {
+class MySQLConnector : IDBConnector
+{
     override var connection: Connection? = null
         private set
 
-    override fun connect() {
-        try {
+    override fun connect()
+    {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver")
             connection = DriverManager.getConnection(DB_URL + DB_NAME + DB_PARAMS, DB_USERNAME, DB_PASSWORD)
         } catch (e: Exception) {
