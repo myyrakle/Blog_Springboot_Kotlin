@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 class HomeController
 {
     @RequestMapping(value=["/"], method= [RequestMethod.GET])
-    fun home(model: Model): String
+    fun homePage(model: Model): String
     {
         model.addAttribute("BlogName", BasicSetting.BLOG_NAME)
         model.addAttribute("BlogTitle", BasicSetting.BLOG_TITLE)

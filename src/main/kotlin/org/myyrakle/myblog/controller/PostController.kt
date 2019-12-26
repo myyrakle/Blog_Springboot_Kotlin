@@ -1,0 +1,15 @@
+package org.myyrakle.myblog.controller
+
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+
+@Controller
+class PostController
+{
+    @RequestMapping(value=["/process_login"], method= [RequestMethod.POST])
+    fun processLogin(): String
+    {
+        return "redirect:/"
+    }
+}
