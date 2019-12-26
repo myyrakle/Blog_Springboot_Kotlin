@@ -1,6 +1,6 @@
 package org.myyrakle.myblog.configuration
 
-object BasicInfo
+object BasicSetting
 {
     //블로그명
     const val BLOG_NAME = "My Blog"
@@ -11,6 +11,13 @@ object BasicInfo
     //관리자명
     const val ADMIN_NAME = "myyrakle"
 
+    //관리자 계정
+    const val ADMIN_USERNAME = "admin"
+    const val ADMIN_PASSWORD = "foobar"
+
     //저작권 표시
     const val COPYRIGHT = "By Myyrakle 2019"
+    
+    //데이터베이스 설정
+
 }

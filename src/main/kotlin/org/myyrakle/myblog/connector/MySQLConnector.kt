@@ -20,8 +20,10 @@ class MySQLConnector : IDBConnector
         }
     }
 
-    override fun disconnect() {
-        try {
+    override fun disconnect()
+    {
+        try
+        {
             connection!!.close()
             connection = null
         } catch (e: SQLException) {
@@ -32,7 +34,8 @@ class MySQLConnector : IDBConnector
     override val isConnected: Boolean
         get() = connection != null
 
-    companion object {
+    companion object
+    {
         private const val DB_NAME = ""
         private const val DB_URL = "jdbc:mysql://localhost:3306/"
         private const val DB_PARAMS = "?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=utf8"
