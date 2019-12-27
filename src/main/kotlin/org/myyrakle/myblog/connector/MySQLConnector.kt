@@ -18,7 +18,9 @@ class MySQLConnector : IDBConnector
         {
             Class.forName("com.mysql.jdbc.Driver")
             connection = DriverManager.getConnection(DB_URL + DB_NAME + DB_PARAMS, DB_USERNAME, DB_PASSWORD)
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             e.printStackTrace()
         }
     }

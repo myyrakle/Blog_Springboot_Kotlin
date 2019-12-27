@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod
 @Controller
 class PostController
 {
-    @RequestMapping(value=["/process_login"], method= [RequestMethod.POST])
-    fun processLogin(): String
+    @RequestMapping(value=["/do_login"], method= [RequestMethod.POST])
+    fun doLogin(): String
+    {
+        return "redirect:/"
+    }
+
+    @RequestMapping(value=["/do_logout"], method= [RequestMethod.POST])
+    fun doLogout(): String
     {
         return "redirect:/"
     }
