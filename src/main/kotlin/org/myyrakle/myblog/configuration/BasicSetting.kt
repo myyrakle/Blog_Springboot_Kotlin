@@ -1,5 +1,8 @@
 package org.myyrakle.myblog.configuration
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
+
 object BasicSetting
 {
     //블로그명
@@ -22,4 +25,6 @@ object BasicSetting
     const val DB_NAME = "MyBlog"
     const val DB_USERNAME = "root"
     const val DB_PASSWORD = "selab"
+
+    val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
 }
