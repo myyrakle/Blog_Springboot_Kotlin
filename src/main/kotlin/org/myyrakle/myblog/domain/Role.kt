@@ -2,6 +2,6 @@ package org.myyrakle.myblog.domain
 
 enum class Role(val value:String)
 {
-    ADMIN("ROLE_ADMIN"),
-    MEMBER("ROLE_MEMBER"),
+    ADMIN("ROLE_ADMIN"), //관리자
+    MEMBER("ROLE_MEMBER"), //일반 멤버
 }
