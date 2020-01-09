@@ -41,7 +41,7 @@ class HomeController
         model.addAttribute("AdminName", BasicSetting.ADMIN_NAME)
         model.addAttribute("Copyright", BasicSetting.COPYRIGHT)
 
-        return "posts"
+        return "all_posts"
     }
 
     @RequestMapping(value=["/login"], method= [RequestMethod.GET])
