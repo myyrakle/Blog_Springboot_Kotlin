@@ -14,17 +14,19 @@ object BasicSetting
     //관리자명
     const val ADMIN_NAME = "myyrakle"
 
-    //관리자 계정
-    const val ADMIN_USERNAME = "admin"
-    const val ADMIN_PASSWORD = "foobar"
-
     //저작권 표시
     const val COPYRIGHT = "By Myyrakle 2019"
-    
-    //데이터베이스 설정
-    const val DB_NAME = "MyBlog"
-    const val DB_USERNAME = "root"
-    const val DB_PASSWORD = "selab"
+
+    //깃허브 링크
+    const val GITHUB_LINK = "https://github.com/myyrakle"
+
+    val defaultModel = mapOf<String, String>(
+            "BlogName" to BLOG_NAME,
+            "BlogTitle" to BLOG_TITLE,
+            "AdminName" to ADMIN_NAME,
+            "Copyright" to COPYRIGHT,
+            "GithubLink" to GITHUB_LINK
+    )
 
     val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
 }
