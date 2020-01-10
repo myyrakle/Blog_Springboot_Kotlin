@@ -1,12 +1,11 @@
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/html">
-<footer th:fragment="main-footer">
+<footer th:fragment="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <ul class="list-inline text-center">
                     <li class="list-inline-item">
-                        <a xmlns:th="http://www.w3.org/1999/html">
+                        <a th:href="${GithubLink}">
                           <span class="fa-stack fa-lg">
                             <i class="fas fa-circle fa-stack-2x"></i>
                             <i class="fab fa-github fa-stack-1x fa-inverse"></i>
@@ -19,3 +18,4 @@
         </div>
     </div>
 </footer>
+</html>

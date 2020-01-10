@@ -11,8 +11,6 @@ import javax.persistence.Table
 
 @Entity
 @Table(name="Post")
-@NoArgsConstructor
-@Getter @Setter
 data class PostEntity
 (
     @Id

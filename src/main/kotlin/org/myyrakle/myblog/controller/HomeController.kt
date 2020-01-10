@@ -56,7 +56,6 @@ class HomeController
     fun viewSinglePost(@PathVariable id:Int, model:Model): String
     {
         val postEntity = postService.readPostById(id)
-
         return if(postEntity.isPresent)
         {
             model.addAllAttributes(BasicSetting.defaultModel);
@@ -70,5 +69,12 @@ class HomeController
             model.addAttribute("ErrorLog", "존재하지 않는 게시글입니다.")
             "error"
         }
+    }
+
+    //카테고리 조회
+    @RequestMapping(value=["/category/{categoryName}"])
+    fun viewSingleCategory(@PathVariable categoryName:String, model:Model): String
+    {
+        return "index"
     }
 }
