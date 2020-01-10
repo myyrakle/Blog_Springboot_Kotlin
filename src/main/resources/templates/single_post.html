@@ -60,7 +60,7 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="post-heading">
                     <h1 th:text="${PostEntity.getTitle()}"></h1>
-                    <pre class="meta" th:text="${PostEntity.getTime()}"></pre>
+                    <pre th:text="${PostEntity.getTime()}"></pre>
                 </div>
             </div>
         </div>
@@ -71,20 +71,8 @@
 <article>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto" th:text="${Body}">
-
-                <p>포스팅 내용...</p>
-
-                <h2 class="section-heading">포스팅 소제목...</h2>
-
-                <p>블라블라...</p>
-
-                <blockquote class="blockquote">인용문?</blockquote>
-
-                <img class="img-fluid" src="/img/post-sample-image.jpg" alt="">
-                <span class="caption text-muted">캡션</span>
-
-                <p>블라블라.</p>
+            <div class="col-lg-8 col-md-10 mx-auto" >
+                <p th:utext="${Body}"></p>
             </div>
         </div>
     </div>
