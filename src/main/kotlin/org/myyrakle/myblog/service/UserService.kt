@@ -14,7 +14,6 @@ class UserService
     fun findByUsername(username: String): UserEntity
         = userRepository.findByUsername(username)
 
-
     fun viewUserAll()
     {
         var users = userRepository.findAll()

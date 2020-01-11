@@ -9,5 +9,5 @@ class AdminController
 {
     @RequestMapping
     fun test(): String
-    ="admin"
+        ="admin"
 }

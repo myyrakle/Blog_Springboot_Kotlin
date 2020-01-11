@@ -11,6 +11,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
 
 //기본 페이지
 @Controller
@@ -43,11 +44,18 @@ class HomeController
     }
 
     @RequestMapping(value=["/login_form"], method= [RequestMethod.GET])
-    fun loginFormPage(model: Model): String
+    fun loginFormPage(@RequestParam(required = false) message:String?, model: Model): String
     {
         model.addAllAttributes(BasicSetting.defaultModel);
+        model.addAttribute("message", message?:"no")
 
         return "login_form"
+    }
+
+    @RequestMapping(value=["/login.do"], method= [RequestMethod.GET])
+    fun doLogin(): String
+    {
+        return "redirect:/home"
     }
 
     @Autowired

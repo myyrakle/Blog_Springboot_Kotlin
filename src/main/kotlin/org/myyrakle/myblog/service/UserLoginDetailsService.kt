@@ -34,6 +34,6 @@ class UserLoginDetailsService: UserDetailsService
             authorities.add(SimpleGrantedAuthority(Role.MEMBER.hasRole()))
         }
 
-        return User(username, userEntity.password, authorities)
+        return User(username, passwordEncoder.encode(userEntity.password), authorities)
     }
 }

@@ -12,7 +12,8 @@ class MyblogApplication
 fun test(context:ConfigurableApplicationContext)
 {
     var service: UserService = context.getBean(UserService::class)
-    service.viewUserAll()
+    var admin = service.findByUsername("")
+    println(admin)
 }
 
 fun main(args: Array<String>)

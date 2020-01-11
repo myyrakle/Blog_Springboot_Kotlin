@@ -3,13 +3,14 @@ package org.myyrakle.myblog.configuration
 import org.myyrakle.myblog.domain.Role
 import org.myyrakle.myblog.service.UserLoginDetailsService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
@@ -26,6 +27,12 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter()
         webSecurity.ignoring().antMatchers("/css/**", "/js/**", "/images/**")
     }
 
+    @Throws(Exception::class)
+    override fun configure(authentication: AuthenticationManagerBuilder)
+    {
+        authentication.userDetailsService<UserDetailsService>(loginService).passwordEncoder(passwordEncoder())
+    }
+
     @Autowired
     private lateinit var loginService: UserLoginDetailsService
 
@@ -38,8 +45,12 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter()
                     .antMatchers("/**").permitAll()
             .and()
                     .formLogin()
-                    .loginPage("/login_form")
-                    .successForwardUrl("/home")
+                    .loginPage("/login_form?message=needLogin")
+                    .loginProcessingUrl("/login.do")
+                    .defaultSuccessUrl("/")
+                    .failureUrl("/category")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
                     .permitAll()
             .and()
                     .logout()
