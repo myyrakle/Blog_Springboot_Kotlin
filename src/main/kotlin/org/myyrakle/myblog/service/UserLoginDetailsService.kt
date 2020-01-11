@@ -14,21 +14,26 @@ import org.springframework.stereotype.Service
 @Service
 class UserLoginDetailsService: UserDetailsService
 {
+    @Autowired
+    lateinit var userService: UserService
+
     private var passwordEncoder: BCryptPasswordEncoder = BCryptPasswordEncoder()
 
     override fun loadUserByUsername(username: String?): UserDetails
     {
         var authorities = ArrayList<GrantedAuthority>()
 
-        if(username == "admin")
+        val userEntity = userService.findByUsername(username ?: "")
+
+        if(userEntity.itsRole == "ADMIN")
         {
-            authorities.add(SimpleGrantedAuthority(Role.ADMIN.value))
+            authorities.add(SimpleGrantedAuthority(Role.ADMIN.hasRole()))
         }
         else
         {
-            authorities.add(SimpleGrantedAuthority(Role.MEMBER.value))
+            authorities.add(SimpleGrantedAuthority(Role.MEMBER.hasRole()))
         }
 
-        return User(username, "?", authorities)
+        return User(username, userEntity.password, authorities)
     }
 }

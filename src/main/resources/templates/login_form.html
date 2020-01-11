@@ -30,7 +30,7 @@
             <p> 사용자명과 패스워드를 입력하세요</p>
 
             <!-- 로그인 폼 -->
-            <form name="sentMessage" id="contactForm" novalidate>
+            <form method="post" action="/login.do" name="sentMessage" id="contactForm" novalidate >
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
                         <label>Username</label>
@@ -41,7 +41,7 @@
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
                         <label>Password</label>
-                        <input type="email" class="form-control" placeholder="Password" id="password" required data-validation-required-message="Please enter your email address.">
+                        <input type="password" class="form-control" placeholder="Password" id="password" required data-validation-required-message="Please enter your password">
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>

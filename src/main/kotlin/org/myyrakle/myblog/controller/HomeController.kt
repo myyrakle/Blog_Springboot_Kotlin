@@ -1,7 +1,7 @@
 package org.myyrakle.myblog.controller
 
 import org.myyrakle.myblog.configuration.BasicSetting
-import org.myyrakle.myblog.entity.PostEntity
+import org.myyrakle.myblog.service.CategoryService
 import org.myyrakle.myblog.service.PostService
 import org.myyrakle.myblog.utility.HtmlEscaper
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,12 +11,14 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import javax.swing.text.html.Option
 
 //기본 페이지
 @Controller
 class HomeController
 {
+    @Autowired
+    lateinit var categoryService: CategoryService
+
     @RequestMapping(value=["/", "/home", "/index"], method= [RequestMethod.GET])
     fun homePage(model: Model): String
     {
@@ -40,12 +42,12 @@ class HomeController
         return "all_posts"
     }
 
-    @RequestMapping(value=["/login"], method= [RequestMethod.GET])
-    fun loginPage(model: Model): String
+    @RequestMapping(value=["/login_form"], method= [RequestMethod.GET])
+    fun loginFormPage(model: Model): String
     {
         model.addAllAttributes(BasicSetting.defaultModel);
 
-        return "login"
+        return "login_form"
     }
 
     @Autowired
@@ -59,9 +61,10 @@ class HomeController
         return if(postEntity.isPresent)
         {
             model.addAllAttributes(BasicSetting.defaultModel);
-            model.addAttribute("PostEntity", postEntity.get())
-            //model.addAttribute("Body", postEntity.get().body)
-            model.addAttribute("Body", HtmlEscaper(postEntity.get().body).toEscapedText())
+            val entity = postEntity.get()
+            entity.title = HtmlEscaper(entity.title).toEscapedText()
+            entity.body = HtmlEscaper(entity.body).toEscapedText()
+            model.addAttribute("PostEntity", entity)
             "single_post";
         }
         else

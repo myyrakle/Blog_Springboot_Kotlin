@@ -14,14 +14,16 @@ create table User (
     _id Int PRIMARY KEY Auto_Increment,
     username varchar(255) NOT NULL UNIQUE,
     email varchar(255) NOT NULL UNIQUE,
+    password varchar(255) NOT NULL,
     its_role varchar(255) NOT NULL UNIQUE,
     foreign key(its_role) references Role(role_name)
 ) Engine=InnoDB;
 
-insert into User(username, email, its_role)
+insert into User(username, email, password, its_role)
 value(
     "ADMIN",
     "sssang97@naver.com",
+    "foobar",
     (select role_name from Role where role_name="ADMIN")
 );
 
