@@ -63,7 +63,7 @@ class HomeController
 
     //포스트 조회
     @RequestMapping(value=["/post/{id}"])
-    fun viewSinglePost(@PathVariable id:Int, model:Model): String
+    fun singlePost(@PathVariable id:Int, model:Model): String
     {
         val postEntity = postService.readPostById(id)
         return if(postEntity.isPresent)
@@ -84,7 +84,7 @@ class HomeController
 
     //카테고리 조회
     @RequestMapping(value=["/category/{categoryName}"])
-    fun viewSingleCategory(@PathVariable categoryName:String, model:Model): String
+    fun categoryPosts(@PathVariable categoryName:String, model:Model): String
     {
         return "index"
     }

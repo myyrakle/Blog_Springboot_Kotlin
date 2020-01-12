@@ -18,5 +18,8 @@ data class CategoryGroupEntity(
     @Column(name = "visible")
     var visible: Boolean,
     @Column(name="_position")
-    var _position: Int?
+    var _position: Int?,
+
+    @Transient
+    var categories: List<CategoryEntity>
 )

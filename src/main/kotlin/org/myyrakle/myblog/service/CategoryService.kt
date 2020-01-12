@@ -1,6 +1,7 @@
 package org.myyrakle.myblog.service
 
 import org.myyrakle.myblog.entity.CategoryEntity
+import org.myyrakle.myblog.entity.CategoryGroupEntity
 import org.myyrakle.myblog.repository.CategoryGroupRepository
 import org.myyrakle.myblog.repository.CategoryRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +15,18 @@ class CategoryService
 
     @Autowired
     lateinit var category: CategoryRepository
+
+    fun getAllCategory(): List<CategoryGroupEntity>
+    {
+        var groups = categoryGroup.findAll()
+
+        for(group in groups)
+        {
+            group.categories = category.findAllByGroupId(group.id)
+        }
+
+        return groups
+    }
 
     fun test()
     {

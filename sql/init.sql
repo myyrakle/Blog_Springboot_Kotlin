@@ -34,7 +34,7 @@ create table CategoryGroup (
     _position int
 ) Engine=InnoDB;
 
-insert into CategoryGroup(group_name) value("__null__");
+insert into CategoryGroup(group_name, _position) value("__null__", 255);
 
 create table Category (
     _id Int PRIMARY KEY Auto_Increment,

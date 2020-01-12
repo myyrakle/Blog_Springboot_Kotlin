@@ -1,12 +1,12 @@
-insert into CategoryGroup(group_name)
+insert into CategoryGroup(group_name, _position)
 values
-("Language"),
-("Web-Frontend"),
-("Web-Backend"),
-("FrameWork"),
-("Library"),
-("LLVM"),
-("LLVM-IR Doc");
+("Language", 1),
+("Web-Frontend", 2),
+("Web-Backend", 3),
+("FrameWork", 4),
+("Library", 5),
+("LLVM", 6),
+("LLVM-IR Doc", 7);
 
 insert into Category(category_name, its_group)
 values
