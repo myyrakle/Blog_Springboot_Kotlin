@@ -1,4 +1,4 @@
-package org.myyrakle.myblog.domain
+package org.myyrakle.myblog.configuration
 
 enum class Role(val value:String)
 {

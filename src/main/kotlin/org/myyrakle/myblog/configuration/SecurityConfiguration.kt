@@ -1,6 +1,5 @@
 package org.myyrakle.myblog.configuration
 
-import org.myyrakle.myblog.domain.Role
 import org.myyrakle.myblog.service.UserLoginDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -54,6 +53,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter()
                     .permitAll()
             .and()
                     .logout()
+                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/home")
                     .permitAll()
             .and()
