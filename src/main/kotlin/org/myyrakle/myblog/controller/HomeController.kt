@@ -46,13 +46,13 @@ class HomeController
 
     //로그인 페이지
     @RequestMapping(value=["/login_form"], method= [RequestMethod.GET])
-    fun loginFormPage(@RequestParam(required = false) message:String?, model: Model, auth: Authentication): String
+    fun loginFormPage(@RequestParam(required = false) message:String?, model: Model): String
     {
-        if(auth.isAuthenticated)
+        /*if(auth?.isAuthenticated)
         {
             model.addAttribute("error", "alreadyLogin")
             return "error"
-        }
+        }*/
 
         model.addAllAttributes(BasicSetting.defaultModel);
         model.addAttribute("message", message?:"no")
