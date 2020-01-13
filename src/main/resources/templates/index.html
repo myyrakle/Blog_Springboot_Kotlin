@@ -9,7 +9,7 @@
      class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"></nav>
 
 <!-- Page Header -->
-<header class="masthead" th:background="@{/img/home-bg.jpg}">
+<header class="masthead" > <!--th:background="@{/img/home-bg.jpg}"-->
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -29,7 +29,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
 
             <div th:each="post:${posts}" class="post-preview">
-                <a th:href="@{/post/(${post.id})}">
+                <a th:href="@{/post/} + ${post.id}">
                     <h2 class="post-title" th:inline="text">
                         [[${post.title}]]
                     </h2>
