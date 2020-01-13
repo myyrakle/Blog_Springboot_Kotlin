@@ -10,16 +10,16 @@ import javax.persistence.Table
 
 @Entity(name="Categorygroup")
 data class CategoryGroupEntity(
-    @Id
+        @Id
     @Column(name = "_id")
     var id:Int,
-    @Column(name = "group_name")
+        @Column(name = "group_name")
     var groupName: String,
-    @Column(name = "visible")
+        @Column(name = "visible")
     var visible: Boolean,
-    @Column(name="_position")
-    var _position: Int?,
+        @Column(name="_position")
+    var position: Int?,
 
-    @Transient
+        @Transient
     var categories: List<CategoryEntity>
 )

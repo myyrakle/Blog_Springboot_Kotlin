@@ -13,6 +13,6 @@ import java.util.*
 interface CategoryRepository: JpaRepository<CategoryEntity, Int>
 {
     fun findAllByGroupId(@Param("its_group") id: Int): List<CategoryEntity>
-
+    fun findAllByGroupIdOrderByPosition(@Param("its_group") id: Int): List<CategoryEntity>
     //fun findByCategoryName(@Param("category_name") categoryName: String): Optional<CategoryEntity>
 }

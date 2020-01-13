@@ -9,6 +9,6 @@ import java.util.*
 @Repository
 interface CategoryGroupRepository: JpaRepository<CategoryGroupEntity, Int>
 {
-    fun findAllByGroupNameIsNot(@Param("group_name") groupName: String): List<CategoryGroupEntity>
+    fun findAllByGroupNameIsNotOrderByPosition(@Param("group_name") groupName: String): List<CategoryGroupEntity>
     fun findByGroupName(@Param("group_name") groupName: String): Optional<CategoryGroupEntity>
 }

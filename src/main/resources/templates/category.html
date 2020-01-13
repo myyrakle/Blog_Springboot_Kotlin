@@ -28,23 +28,20 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">카테고리 그룹</a>
+                <li th:each="group:${allCategoryGroups}" class="list-group-item d-flex justify-content-between align-items-center nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                       role="button" aria-haspopup="true" aria-expanded="false"
+                       th:text="${group?.groupName}">카테고리 그룹명</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">카테고리</a>
-                        <a class="dropdown-item" href="#">카테고리</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">카테고리</a>
+                        <a th:each="category:${group?.categories}" class="dropdown-item" href="#"
+                           th:text="${category?.categoryName}">카테고리명</a>
+                        <span class="badge badge-primary badge-pill" th:text="${category?.postCount}">글 개수</span>
                     </div>
-                    <span class="badge badge-primary badge-pill">글 개수</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    &nbsp&nbsp&nbsp 카테고리2
-                    <span class="badge badge-primary badge-pill">글 개수</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    &nbsp&nbsp&nbsp 카테고리3
-                    <span class="badge badge-primary badge-pill">글 개수</span>
+                <li th:each="category:${nullGroupCategories}" th:inline="text"
+                    class="list-group-item d-flex justify-content-between align-items-center">
+                    &nbsp&nbsp&nbsp[[${category?.categoryName}]]
+                    <span class="badge badge-primary badge-pill" th:text="${category.postCount}">글 개수</span>
                 </li>
             </ul>
 

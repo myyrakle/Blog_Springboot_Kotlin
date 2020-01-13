@@ -33,6 +33,7 @@ class HomeController
     {
         model.addAllAttributes(BasicSetting.defaultModel);
         model.addAttribute("allCategoryGroups", categoryService.getAllCategoryGroups())
+        model.addAttribute("nullGroupCategories", categoryService.getNullGroupCategories())
 
         return "category"
     }
