@@ -21,7 +21,7 @@ class CategoryService
 
     fun getAllCategoryGroups(): List<CategoryGroupEntity>
     {
-        var groups = categoryGroupRepository.findAllByGroupNameIsNot(NULL_CATEGORY)
+        val groups = categoryGroupRepository.findAllByGroupNameIsNot(NULL_CATEGORY)
 
         for(group in groups)
         {
@@ -33,7 +33,7 @@ class CategoryService
 
     fun getNullCategoryGroup(): CategoryGroupEntity
     {
-        var nullCategoryGroup =
+        val nullCategoryGroup =
                 categoryGroupRepository.findByGroupName(NULL_CATEGORY).get()
         nullCategoryGroup.categories = categoryRepository.findAllByGroupId(nullCategoryGroup.id)
 
@@ -43,22 +43,34 @@ class CategoryService
     fun getCategory(categoryId: Int): Optional<CategoryEntity>
         = categoryRepository.findById(categoryId)
 
+    //해당 카테고리 포스트 개수 증가
+    fun increasePostCount(categoryId: Int)
+    {
+        val entityOption = categoryRepository.findById(categoryId)
+        if(entityOption.isEmpty)
+            return
+
+        val entity = entityOption.get()
+        entity.postCount++
+        categoryRepository.save(entity)
+    }
+
+    //해당 카테고리 포스트 개수 감소
+    fun decreasePostCount(categoryId: Int)
+    {
+        val entityOption = categoryRepository.findById(categoryId)
+        if(entityOption.isEmpty)
+            return
+
+        val entity = entityOption.get()
+        entity.postCount--
+        categoryRepository.save(entity)
+    }
+
+    
+    //테스트
     fun test()
     {
-        viewCategoryGroupAll()
-    }
 
-    fun viewCategoryAll()
-    {
-        var groups = categoryRepository.findAll()
-        for(e in groups)
-            println(e)
-    }
-
-    fun viewCategoryGroupAll()
-    {
-        var groups = categoryGroupRepository.findAll()
-        for(e in groups)
-            println(e)
     }
 }
