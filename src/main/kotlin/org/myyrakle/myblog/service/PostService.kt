@@ -12,9 +12,13 @@ class PostService
     @Autowired
     private lateinit var postRepository: PostRepository
 
-    fun readPostById(id:Int): Optional<PostEntity>
+    fun getPostById(id:Int): Optional<PostEntity>
         = postRepository.findById(id)
 
+    fun getPostsByCategory(categoryName:String)
+    {
+
+    }
 
     fun readLatestPosts()
     {

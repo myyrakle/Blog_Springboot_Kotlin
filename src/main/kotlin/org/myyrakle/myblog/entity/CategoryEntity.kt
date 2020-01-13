@@ -6,11 +6,11 @@ import javax.persistence.Id
 
 @Entity(name="Category")
 data class CategoryEntity(
-    @Id
+        @Id
     @Column(name = "_id")
     var id: Int,
     @Column(name = "category_name")
-    var name: String,
+    var categoryName: String,
     @Column(name = "visible")
     var visible: Boolean,
     @Column(name = "position")

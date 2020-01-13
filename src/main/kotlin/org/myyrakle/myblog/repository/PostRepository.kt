@@ -10,4 +10,5 @@ import java.util.*
 interface PostRepository: JpaRepository<PostEntity, Int>
 {
     override fun findById(@Param("_id") id: Int): Optional<PostEntity>
+    fun findAllByCategoryID(@Param("category_id") categoryId: Int): List<PostEntity>
 }

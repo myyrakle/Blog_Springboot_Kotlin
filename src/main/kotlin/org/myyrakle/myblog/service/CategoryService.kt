@@ -6,27 +6,42 @@ import org.myyrakle.myblog.repository.CategoryGroupRepository
 import org.myyrakle.myblog.repository.CategoryRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class CategoryService
 {
-    @Autowired
-    lateinit var categoryGroup: CategoryGroupRepository
+    val NULL_CATEGORY = "__null__"
 
     @Autowired
-    lateinit var category: CategoryRepository
+    lateinit var categoryGroupRepository: CategoryGroupRepository
 
-    fun getAllCategory(): List<CategoryGroupEntity>
+    @Autowired
+    lateinit var categoryRepository: CategoryRepository
+
+    fun getAllCategoryGroups(): List<CategoryGroupEntity>
     {
-        var groups = categoryGroup.findAll()
+        var groups = categoryGroupRepository.findAllByGroupNameIsNot(NULL_CATEGORY)
 
         for(group in groups)
         {
-            group.categories = category.findAllByGroupId(group.id)
+            group.categories = categoryRepository.findAllByGroupId(group.id)
         }
 
         return groups
     }
+
+    fun getNullCategoryGroup(): CategoryGroupEntity
+    {
+        var nullCategoryGroup =
+                categoryGroupRepository.findByGroupName(NULL_CATEGORY).get()
+        nullCategoryGroup.categories = categoryRepository.findAllByGroupId(nullCategoryGroup.id)
+
+        return nullCategoryGroup
+    }
+
+    fun getCategory(categoryId: Int): Optional<CategoryEntity>
+        = categoryRepository.findById(categoryId)
 
     fun test()
     {
@@ -35,14 +50,14 @@ class CategoryService
 
     fun viewCategoryAll()
     {
-        var groups = category.findAll()
+        var groups = categoryRepository.findAll()
         for(e in groups)
             println(e)
     }
 
     fun viewCategoryGroupAll()
     {
-        var groups = categoryGroup.findAll()
+        var groups = categoryGroupRepository.findAll()
         for(e in groups)
             println(e)
     }

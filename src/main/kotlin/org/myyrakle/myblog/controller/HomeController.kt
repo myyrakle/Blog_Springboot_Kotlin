@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class HomeController
 {
-    @Autowired
-    lateinit var categoryService: CategoryService
-
     @RequestMapping(value=["/", "/home", "/index"], method= [RequestMethod.GET])
     fun homePage(model: Model): String
     {
@@ -28,10 +25,14 @@ class HomeController
         return "index"
     }
 
+    @Autowired
+    lateinit var categoryService: CategoryService
+
     @RequestMapping(value=["/category"], method= [RequestMethod.GET])
     fun categoryPage(model: Model): String
     {
         model.addAllAttributes(BasicSetting.defaultModel);
+        model.addAttribute("allCategoryGroups", categoryService.getAllCategoryGroups())
 
         return "category"
     }
@@ -65,7 +66,7 @@ class HomeController
     @RequestMapping(value=["/post/{id}"])
     fun singlePost(@PathVariable id:Int, model:Model): String
     {
-        val postEntity = postService.readPostById(id)
+        val postEntity = postService.getPostById(id)
         return if(postEntity.isPresent)
         {
             model.addAllAttributes(BasicSetting.defaultModel);
@@ -83,9 +84,18 @@ class HomeController
     }
 
     //카테고리 조회
-    @RequestMapping(value=["/category/{categoryName}"])
-    fun categoryPosts(@PathVariable categoryName:String, model:Model): String
+    @RequestMapping(value=["/category/{categoryId}"])
+    fun categoryPosts(@PathVariable categoryId:Int, model:Model): String
     {
-        return "index"
+        if(categoryService.getCategory(categoryId).isEmpty)
+        {
+            model.addAttribute("error", "noCategory")
+            return "error"
+        }
+        else
+        {
+            model.addAttribute("")
+            return "all_posts"
+        }
     }
 }
