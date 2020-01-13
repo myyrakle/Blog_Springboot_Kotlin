@@ -27,24 +27,17 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="post-preview">
-                <a href="#">
-                    <h2 class="post-title">
-                        첫번째 노출 포스트 제목
+
+            <div th:each="post:${posts}" class="post-preview">
+                <a th:href="@{/post/(${post.id})}">
+                    <h2 class="post-title" th:inline="text">
+                        [[${post.title}]]
                     </h2>
                 </a>
-                <p class="post-meta">작성일</p>
+                <p class="post-meta" th:text="${post.time}">작성일</p>
+                <hr>
             </div>
-            <hr>
-            <div class="post-preview">
-                <a href="#">
-                    <h2 class="post-title">
-                        두번째 노출 포스트 제목
-                    </h2>
-                </a>
-                <p class="post-meta">작성일</p>
-            </div>
-            <hr>
+
             <!-- Pager -->
             <div class="clearfix">
                 <a class="btn btn-primary float-right" href="/all_posts">포스트 더 보기 &rarr;</a>

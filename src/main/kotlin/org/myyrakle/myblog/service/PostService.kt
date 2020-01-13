@@ -15,6 +15,10 @@ class PostService
     fun getPostById(id:Int): Optional<PostEntity>
         = postRepository.findById(id)
 
+    fun getTop3MainPage(): List<PostEntity>
+        = postRepository.findTop3ByOrderByTimeDesc()
+
+
     fun getPostsByCategory(categoryName:String)
     {
 

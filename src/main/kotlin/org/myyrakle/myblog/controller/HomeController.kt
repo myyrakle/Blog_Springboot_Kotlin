@@ -17,17 +17,22 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class HomeController
 {
+    @Autowired
+    lateinit var postService: PostService
+    @Autowired
+    lateinit var categoryService: CategoryService
+
+    //메인 페이지
     @RequestMapping(value=["/", "/home", "/index"], method= [RequestMethod.GET])
     fun homePage(model: Model): String
     {
         model.addAllAttributes(BasicSetting.defaultModel);
+        model.addAttribute("posts", postService.getTop3MainPage())
 
         return "index"
     }
 
-    @Autowired
-    lateinit var categoryService: CategoryService
-
+    //카테고리 페이지
     @RequestMapping(value=["/category"], method= [RequestMethod.GET])
     fun categoryPage(model: Model): String
     {
@@ -38,6 +43,7 @@ class HomeController
         return "category"
     }
 
+    //전체 게시글 페이지
     @RequestMapping(value=["/all_posts"], method= [RequestMethod.GET])
     fun allPostsPage(model: Model): String
     {
@@ -45,6 +51,7 @@ class HomeController
         return "all_posts"
     }
 
+    //로그인 페이지
     @RequestMapping(value=["/login_form"], method= [RequestMethod.GET])
     fun loginFormPage(@RequestParam(required = false) message:String?, model: Model): String
     {
@@ -52,51 +59,5 @@ class HomeController
         model.addAttribute("message", message?:"no")
 
         return "login_form"
-    }
-
-    @RequestMapping(value=["/login.do"], method= [RequestMethod.GET])
-    fun doLogin(): String
-    {
-        return "redirect:/home"
-    }
-
-    @Autowired
-    lateinit var postService: PostService
-
-    //포스트 조회
-    @RequestMapping(value=["/post/{id}"])
-    fun singlePost(@PathVariable id:Int, model:Model): String
-    {
-        val postEntity = postService.getPostById(id)
-        return if(postEntity.isPresent)
-        {
-            model.addAllAttributes(BasicSetting.defaultModel);
-            val entity = postEntity.get()
-            entity.title = HtmlEscaper(entity.title).toEscapedText()
-            entity.body = HtmlEscaper(entity.body).toEscapedText()
-            model.addAttribute("PostEntity", entity)
-            "single_post";
-        }
-        else
-        {
-            model.addAttribute("ErrorLog", "존재하지 않는 게시글입니다.")
-            "error"
-        }
-    }
-
-    //카테고리 조회
-    @RequestMapping(value=["/category/{categoryId}"])
-    fun categoryPosts(@PathVariable categoryId:Int, model:Model): String
-    {
-        if(categoryService.getCategory(categoryId).isEmpty)
-        {
-            model.addAttribute("error", "noCategory")
-            return "error"
-        }
-        else
-        {
-            model.addAttribute("")
-            return "all_posts"
-        }
     }
 }

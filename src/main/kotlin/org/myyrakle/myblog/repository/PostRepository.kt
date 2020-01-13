@@ -9,6 +9,6 @@ import java.util.*
 @Repository
 interface PostRepository: JpaRepository<PostEntity, Int>
 {
-    override fun findById(@Param("_id") id: Int): Optional<PostEntity>
+    fun findTop3ByOrderByTimeDesc(): List<PostEntity>
     fun findAllByCategoryID(@Param("category_id") categoryId: Int): List<PostEntity>
 }
