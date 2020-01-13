@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
 class PostController
@@ -17,6 +18,14 @@ class PostController
     lateinit var postService: PostService
     @Autowired
     lateinit var categoryService: CategoryService
+
+    //전체 게시글 페이지
+    @RequestMapping(value=["/all_posts"], method= [RequestMethod.GET])
+    fun allPostsPage(model: Model): String
+    {
+        model.addAllAttributes(BasicSetting.defaultModel);
+        return "all_posts"
+    }
 
     //포스트 조회
     @RequestMapping(value=["/post/{id}"])

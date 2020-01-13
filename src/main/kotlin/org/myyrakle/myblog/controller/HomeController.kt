@@ -5,6 +5,7 @@ import org.myyrakle.myblog.service.CategoryService
 import org.myyrakle.myblog.service.PostService
 import org.myyrakle.myblog.utility.HtmlEscaper
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.Authentication
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -43,18 +44,16 @@ class HomeController
         return "category"
     }
 
-    //전체 게시글 페이지
-    @RequestMapping(value=["/all_posts"], method= [RequestMethod.GET])
-    fun allPostsPage(model: Model): String
-    {
-        model.addAllAttributes(BasicSetting.defaultModel);
-        return "all_posts"
-    }
-
     //로그인 페이지
     @RequestMapping(value=["/login_form"], method= [RequestMethod.GET])
-    fun loginFormPage(@RequestParam(required = false) message:String?, model: Model): String
+    fun loginFormPage(@RequestParam(required = false) message:String?, model: Model, auth: Authentication): String
     {
+        if(auth.isAuthenticated)
+        {
+            model.addAttribute("error", "alreadyLogin")
+            return "error"
+        }
+
         model.addAllAttributes(BasicSetting.defaultModel);
         model.addAttribute("message", message?:"no")
 
