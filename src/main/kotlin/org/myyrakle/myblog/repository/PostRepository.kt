@@ -9,6 +9,10 @@ import java.util.*
 @Repository
 interface PostRepository: JpaRepository<PostEntity, Int>
 {
+    //메인페이지용. 3개만 가져옴.
     fun findTop3ByOrderByTimeDesc(): List<PostEntity>
+
     fun findAllByCategoryID(@Param("category_id") categoryId: Int): List<PostEntity>
+
+
 }
