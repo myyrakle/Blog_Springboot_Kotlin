@@ -20,12 +20,15 @@ class PostController
     lateinit var categoryService: CategoryService
 
     //전체 게시글 페이지
-    @RequestMapping(value=["/all_posts/{pageIndex}"], method= [RequestMethod.GET])
-    fun allPostsPage(@PathVariable pageIndex:Int, model: Model): String
+    @RequestMapping(value=["/all_posts/{pageNumber}"], method= [RequestMethod.GET])
+    fun allPostsPage(@PathVariable(required = false) pageNumber:Int, model: Model): String
     {
         model.addAllAttributes(BasicSetting.defaultModel);
 
+        val currentPage = postService.getCurrentPage(pageNumber-1)
 
+        model.addAttribute("currentPosts", currentPage)
+        model.addAttribute("empty", currentPage.totalElements == 0L)
 
         return "all_posts"
     }

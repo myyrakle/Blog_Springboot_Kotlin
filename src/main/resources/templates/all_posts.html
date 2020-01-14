@@ -27,27 +27,23 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        첫번째 노출 포스트 제목
+            <div th:each="post:${currentPosts}" class="post-preview">
+                <a th:href="@{/post/} + ${post.id}">
+                    <h2 class="post-title" th:text="${post.title}">
+                        노출 포스트 제목
                     </h2>
                 </a>
-                <p class="post-meta">작성일</p>
+                <p class="post-meta" th:text="${post.time}">작성일</p>
+                <hr>
             </div>
-            <hr>
-            <div class="post-preview">
-                <a href="/post">
-                    <h2 class="post-title">
-                        두번째 노출 포스트 제목
-                    </h2>
-                </a>
-                <p class="post-meta">작성일</p>
+            <div th:if="${empty}">
+                존재하지 않습니다.
             </div>
-            <hr>
         </div>
     </div>
 </div>
+
+<br/><br/>
 
 <!-- Pager -->
 <div class="container">
