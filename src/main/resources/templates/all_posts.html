@@ -48,12 +48,16 @@
 <!-- Pager -->
 <div class="container">
     <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link">이전</a></li>
+        <li id="previous" class="page-item">
+            <a class="page-link" th:href="@{/all_posts/}+${currentPageNumber-5}">이전</a>
+        </li>
         <li th:each="page:${pager}" class="page-item"
             th:classappend="${page.number}==${currentPageNumber} ? active : ''">
             <a class="page-link" th:href="@{/all_posts/}+${page.number}" th:text="${page.number}">1</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">다음</a></li>
+        <li id="next" class="page-item">
+            <a class="page-link" th:href="@{/all_posts/}+${currentPageNumber+5}">다음</a>
+       </li>
     </ul>
 </div>
 
@@ -70,6 +74,16 @@
 
 <!-- Custom scripts for this template -->
 <script src="/js/my-blog.js"></script>
+
+<script th:inline="text">
+    var currentPageNumber = [[${currentPageNumber}]]
+    var totalPageNumber = [[${currentPosts.totalPages}]];
+
+    if(currentPageNumber-5 < 1)
+        $('#previous').addClass("disabled");
+    if(currentPageNumber+5 > totalPageNumber)
+        $('#next').addClass("disabled");
+</script>
 
 </body>
 </html>

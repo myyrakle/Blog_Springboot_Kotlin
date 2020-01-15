@@ -31,8 +31,6 @@ class PagerBuilder(val page: Page<PostEntity>)
     fun getPager(): List<PageNumber>
     {
         val pagerLength = page.totalPages % PAGER_MAX_LENGTH
-        println(page.number)
-        println(pagerLength)
         val firstNumber = computeFirstNumberOfPager(page.number+1)
         return (firstNumber until (firstNumber+pagerLength)).map {
                     PageNumber(
