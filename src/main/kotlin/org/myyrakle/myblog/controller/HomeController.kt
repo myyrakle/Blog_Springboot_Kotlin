@@ -29,6 +29,7 @@ class HomeController
     {
         model.addAllAttributes(BasicSetting.defaultModel);
         model.addAttribute("posts", postService.getTop3MainPage())
+        model.addAttribute("subhead", "")
 
         return "index"
     }
@@ -40,6 +41,7 @@ class HomeController
         model.addAllAttributes(BasicSetting.defaultModel);
         model.addAttribute("allCategoryGroups", categoryService.getAllCategoryGroups())
         model.addAttribute("nullGroupCategories", categoryService.getNullGroupCategories())
+        model.addAttribute("subhead", "")
 
         return "category"
     }
@@ -56,6 +58,7 @@ class HomeController
 
         model.addAllAttributes(BasicSetting.defaultModel);
         model.addAttribute("message", message?:"no")
+        model.addAttribute("subhead", "")
 
         return "login_form"
     }

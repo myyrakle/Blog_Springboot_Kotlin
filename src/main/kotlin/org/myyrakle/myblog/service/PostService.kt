@@ -14,7 +14,14 @@ class PostService
     @Autowired
     private lateinit var postRepository: PostRepository
 
-    val PAGE_SIZE = 10;
+    companion object
+    {
+        // 한 페이지당 글 개수
+        const val PAGE_SIZE = 10;
+
+        // 한번에 페이저에 띄울 페이지 개수
+        const val PAGER_LENGTH = 5;
+    }
 
     fun getPostById(id:Int): Optional<PostEntity>
         = postRepository.findById(id)
@@ -29,9 +36,11 @@ class PostService
     fun getCurrentPage(pageIndex: Int): Page<PostEntity>
         = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))
 
+    //fun countAllPost
+
     fun getPostsByCategory(categoryName:String)
     {
-
+        postRepository.count()
     }
 
     fun readLatestPosts()

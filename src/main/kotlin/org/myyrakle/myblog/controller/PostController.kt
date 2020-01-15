@@ -27,6 +27,10 @@ class PostController
 
         val currentPage = postService.getCurrentPage(pageNumber-1)
 
+        currentPage.totalPages / PostService.PAGER_LENGTH
+
+        model.addAttribute("head", "All Posts")
+        model.addAttribute("subhead", "")
         model.addAttribute("currentPosts", currentPage)
         model.addAttribute("empty", currentPage.totalElements == 0L)
 

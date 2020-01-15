@@ -139,8 +139,104 @@ edge 가중치(weight)들을 계산할때, cold 함수 호출에 의해 제어�
 ),
 (
     now(),
-    "",
-    "",
+    "[LLVM-IR] 함수 속성: speculative_load_hardening (번역)",
+    "https://llvm.org/docs/LangRef.html#function-attributes
+
+speculative_load_hardening
+이 속성은 해당 함수 body에서 Speculative Load Hardening를 활성화시킵니다.
+
+Speculative Load Hardening는 제어 흐름의 miss-speculation, 특히 branch의 miss-speculation을 이용한 정보 누출 공격에 대한 최선의 대책입니다.
+
+일반적으로 그런 공격을 가능하게 하는 취약점들은 “Spectre variant #1”로 분류됩니다.
+
+특히, 이건 “Spectre variant #2” 취약점들로 분류된 branch 타겟의 miss-speculation에 대한 완화(mitigate)를 시도하진 않습니다.
+->Notably, this does not attempt to mitigate against miss-speculation of branch target, classified as “Spectre variant #2” vulnerabilities.
+
+인라인될때, 이 속성은 끈적거리는(sticky) 성질을 가집니다.
+이 속성이 달린 함수를 인라인하면 호출자도 이 속성을 갖게 되거든요.
+
+이건 해당 함수의 코드가 항상(인라인 후에도) 강화되는(hardened) 최고의 보수적(conservative) 모델을 제공하기 위한 겁니다.",
+
+    (select _id from User where username="ADMIN"),
+    (select _id from Category where category_name="함수 속성")
+),
+(
+    now(),
+    "[LLVM-IR] 함수 속성: speculatable (번역)",
+    "https://llvm.org/docs/LangRef.html#function-attributes
+
+speculatable
+이 속성은 해당 함수가 그 결과를 계산하는 것 이외의 그 어떤 효과도 갖지 않으며, 정의되지 않은 행동도 없음을 나타냅니다.
+
+speculatable으론 어떤 특정 실행 경로를 따르든지 해당 함수의 호출 수를 외부에서 관찰할 수 없다고 결론짓기엔 불충분합니다.
+->Note that speculatable is not enough to conclude that along any particular execution path the number of calls to this function will not be externally observable.
+
+이 속성은 함수와 그 선언에서만 유효합니다. 각각의 호출 사이트는 아니고요.
+
+만약 함수에 speculatable가 잘못 달리고, 실제로 정의되지 않은 행동을 보인다면.
+해당 호출 사이트가 죽은 코드라도 정의되지 않은 행동이 관찰될 수 있습니다.",
+
+    (select _id from User where username="ADMIN"),
+    (select _id from Category where category_name="함수 속성")
+),
+(
+    now(),
+    "[LLVM-IR] 함수 속성: stack-probe-size (번역)",
+    "https://llvm.org/docs/LangRef.html#function-attributes
+
+\"stack-probe-size\"
+이 속성은 stack probes의 행동을 제어합니다. \"probe-stack\" 속성이나 기타 ABI에서 필요한 stack probe들까지요.
+
+이건 guard 영역의 크기를 정의하는데요.
+해당 함수가 guard 영역의 크기보다 더 큰 스택 공간을 사용하려든다면, stack probing sequence가 방출될 것임을 보장합니다.
+
+이 속성은 인자로 정수값을 하나 받습니다. 디폴트 값은 4096입니다.
+
+만약 stack-probe-size 속성을 가진 함수가 다른 stack-probe-size 함수로 인라인된다면, 그 결과 함수는 더 작은 값의 stack-probe-size를 가지게 됩니다.
+
+만약 stack-probe-size 속성을 가진 함수가 stack-probe-size이 없는 함수로 인라인된다면, 그 결과 함수는 피호출자의 stack-probe-size 속성을 가지게 됩니다.",
+
+    (select _id from User where username="ADMIN"),
+    (select _id from Category where category_name="함수 속성")
+),
+(
+    now(),
+    "[LLVM-IR] 함수 속성: safestack (번역)",
+    "https://llvm.org/docs/LangRef.html#function-attributes
+
+safestack
+이 속성은 해당 함수에서 SafeStack 보호를 활성화합니다.
+
+만약 safestack 속성을 가진 함수가 safestack이 없거나, ssp/sspstrong/sspreq 속성을 가진 함수로 인라인된다면, 그 결과 함수는 safestack 속성을 가질 겁니다.",
+
+    (select _id from User where username="ADMIN"),
+    (select _id from Category where category_name="함수 속성")
+),
+(
+    now(),
+    "[LLVM-IR] 함수 속성: uwtable (번역)",
+    "https://llvm.org/docs/LangRef.html#function-attributes
+
+uwtable
+이 속성은 대상이 되는 ABI가 예외가 전달하지 않는다는걸 보여줄 수 있더라도, 이 함수에 대해 unwind 테이블 엔트리가 생성되어야 함을 나타냅니다.
+
+이건 일반적으로 ELF x86-64의 경우에요. 하지만 일부 컴파일 단위에선 비활성화될 수도 있습니다.",
+
+    (select _id from User where username="ADMIN"),
+    (select _id from Category where category_name="함수 속성")
+),
+(
+    now(),
+    "[LLVM-IR] 함수 속성: strictfp (번역)",
+    "https://llvm.org/docs/LangRef.html#function-attributes
+
+strictfp
+이 속성은 해당 함수가 엄격한(strict) 부동소수점 의미론을 요구하는 스코프에서 호출될 것임을 나타냅니다.
+
+그럼 LLVM은 부동소수점 반올림 모드에 대한 가정이 필요하거나, 이 함수를 호출해서 설정/삭제할 수 있는 부동소수점 상태 플래그의 상태를 수정하는 최적화를 시도하지 않을 겁니다.
+->LLVM will not attempt any optimizations that require assumptions about the floating-point rounding mode or that might alter the state of floating-point status flags that might otherwise be set or cleared by calling this function.
+
+LLVM은 trap이 될 수 있는 부동소수점 인스트럭션을 집어넣지 않을 거에요.",
 
     (select _id from User where username="ADMIN"),
     (select _id from Category where category_name="함수 속성")
