@@ -2,6 +2,7 @@ package org.myyrakle.myblog.controller
 
 import org.myyrakle.myblog.configuration.BasicSetting
 import org.myyrakle.myblog.service.CategoryService
+import org.myyrakle.myblog.service.PagerBuilder
 import org.myyrakle.myblog.service.PostService
 import org.myyrakle.myblog.utility.HtmlEscaper
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,11 +28,11 @@ class PostController
 
         val currentPage = postService.getCurrentPage(pageNumber-1)
 
-        currentPage.totalPages / PostService.PAGER_LENGTH
-
         model.addAttribute("head", "All Posts")
         model.addAttribute("subhead", "")
         model.addAttribute("currentPosts", currentPage)
+        model.addAttribute("currentPageNumber", pageNumber)
+        model.addAttribute("pager", PagerBuilder(currentPage).getPager())
         model.addAttribute("empty", currentPage.totalElements == 0L)
 
         return "all_posts"

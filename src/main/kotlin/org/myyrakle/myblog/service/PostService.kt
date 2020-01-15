@@ -18,9 +18,6 @@ class PostService
     {
         // 한 페이지당 글 개수
         const val PAGE_SIZE = 10;
-
-        // 한번에 페이저에 띄울 페이지 개수
-        const val PAGER_LENGTH = 5;
     }
 
     fun getPostById(id:Int): Optional<PostEntity>

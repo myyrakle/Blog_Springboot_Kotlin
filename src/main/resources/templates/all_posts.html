@@ -49,7 +49,10 @@
 <div class="container">
     <ul class="pagination justify-content-center">
         <li class="page-item"><a class="page-link">이전</a></li>
-        <li th:each="" class="page-item active"><a class="page-link" th:href="@{/all_posts/}+${}">1</a></li>
+        <li th:each="page:${pager}" class="page-item"
+            th:classappend="${page.number}==${currentPageNumber} ? active : ''">
+            <a class="page-link" th:href="@{/all_posts/}+${page.number}" th:text="${page.number}">1</a>
+        </li>
         <li class="page-item"><a class="page-link" href="#">다음</a></li>
     </ul>
 </div>
