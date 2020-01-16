@@ -38,7 +38,33 @@ class PostController
         return "all_posts"
     }
 
-    //포스트 조회
+    //카테고리 포스트 조회
+    @RequestMapping(value=["/category/{categoryId}/{pageNumber}"])
+    fun categoryPosts(@PathVariable categoryId:Int, @PathVariable pageNumber:Int, model: Model): String
+    {
+        val currentCategory = categoryService.getCategory(categoryId)
+        if(currentCategory.isEmpty)
+        {
+            model.addAttribute("error", "noCategory")
+            return "error"
+        }
+        else
+        {
+            val currentPage = postService.getCurrentPageByCategory(pageNumber-1, categoryId)
+
+            model.addAttribute("head", currentCategory.get().categoryName)
+            model.addAttribute("subhead", "")
+            model.addAttribute("currentPosts", currentPage)
+            model.addAttribute("currentPageNumber", pageNumber)
+            model.addAttribute("pager", PagerBuilder(currentPage).getPager())
+            model.addAttribute("empty", currentPage.totalElements == 0L)
+
+            model.addAttribute("")
+            return "all_posts"
+        }
+    }
+
+    //단일 포스트 조회
     @RequestMapping(value=["/post/{id}"])
     fun singlePost(@PathVariable id:Int, model: Model): String
     {
@@ -50,28 +76,22 @@ class PostController
             entity.title = HtmlEscaper(entity.title).toEscapedText()
             entity.body = HtmlEscaper(entity.body).toEscapedText()
             model.addAttribute("PostEntity", entity)
+
+            val categoryEntityOption = categoryService.getCategory(entity.categoryID)
+            if(categoryEntityOption.isEmpty)
+            {
+                model.addAttribute("ErrorLog", "존재하지 않는 게시글입니다.")
+                "error"
+            }
+
+            model.addAttribute("CategoryEntity", categoryEntityOption.get())
+
             "single_post";
         }
         else
         {
             model.addAttribute("ErrorLog", "존재하지 않는 게시글입니다.")
             "error"
-        }
-    }
-
-    //카테고리 포스트 조회
-    @RequestMapping(value=["/category/{categoryId}"])
-    fun categoryPosts(@PathVariable categoryId:Int, model: Model): String
-    {
-        if(categoryService.getCategory(categoryId).isEmpty)
-        {
-            model.addAttribute("error", "noCategory")
-            return "error"
-        }
-        else
-        {
-            model.addAttribute("")
-            return "all_posts"
         }
     }
 }

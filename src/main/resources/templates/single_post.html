@@ -15,7 +15,14 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="post-heading">
-                    <h1 th:utext="${PostEntity.title}"></h1>
+                    <h5 style="text-align: center;">
+                        <a th:href="@{/category/}+${PostEntity.categoryID}+@{/1}"
+                           th:text="${CategoryEntity.categoryName}">
+                            카테고리
+                        </a>
+                    </h5>
+                    <br/>
+                    <h2 th:utext="${PostEntity.title}"></h2>
                     <pre th:text="${PostEntity.time}"></pre>
                 </div>
             </div>

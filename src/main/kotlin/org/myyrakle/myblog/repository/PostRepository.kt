@@ -14,7 +14,7 @@ interface PostRepository: JpaRepository<PostEntity, Int>
     //메인페이지용. 3개만 가져옴.
     fun findTop3ByOrderByTimeDesc(): List<PostEntity>
 
-    fun findAllByCategoryID(@Param("category_id") categoryId: Int): List<PostEntity>
-
     fun findAllByOrderByTimeDesc(pageable: Pageable): Page<PostEntity>
+
+    fun findAllByCategoryIDOrderByTimeDesc(@Param("category_id") categoryId: Int, pageable: Pageable): Page<PostEntity>
 }

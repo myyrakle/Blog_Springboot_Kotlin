@@ -7,7 +7,4 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping(value = ["/admin"])
 class AdminController
 {
-    @RequestMapping
-    fun test(): String
-        ="admin"
 }

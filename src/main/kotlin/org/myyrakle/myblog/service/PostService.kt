@@ -30,18 +30,11 @@ class PostService
     fun getAllPages(pageIndex: Int): Page<PostEntity>
         = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))
 
+    //현재 인덱스의 모든 페이지 긁어옴
     fun getCurrentPage(pageIndex: Int): Page<PostEntity>
         = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))
 
-    //fun countAllPost
-
-    fun getPostsByCategory(categoryName:String)
-    {
-        postRepository.count()
-    }
-
-    fun readLatestPosts()
-    {
-
-    }
+    //해당 인덱스와 카테고리의 전체 페이지 긁어옴
+    fun getCurrentPageByCategory(pageIndex:Int, categoryId:Int): Page<PostEntity>
+        = postRepository.findAllByCategoryIDOrderByTimeDesc(categoryId, PageRequest.of(pageIndex, PAGE_SIZE))
 }

@@ -1,4 +1,16 @@
-
-<html lang="en">
-
+<html lang="en" xmlns:th="http://www.w3.org/1999/html" >
+    <div class="container" th:fragment="pager">
+        <ul class="pagination justify-content-center">
+            <li id="previous" class="page-item">
+                <a class="page-link" th:href="@{/all_posts/}+${currentPageNumber-5}">이전</a>
+            </li>
+            <li th:each="page:${pager}" class="page-item"
+                th:classappend="${page.number}==${currentPageNumber} ? active : ''">
+                <a class="page-link" th:href="@{/all_posts/}+${page.number}" th:text="${page.number}">1</a>
+            </li>
+            <li id="next" class="page-item">
+                <a class="page-link" th:href="@{/all_posts/}+${currentPageNumber+5}">다음</a>
+            </li>
+        </ul>
+    </div>
 </html>
