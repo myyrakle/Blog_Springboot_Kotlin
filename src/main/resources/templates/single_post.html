@@ -24,6 +24,12 @@
                     <br/>
                     <h2 th:utext="${PostEntity.title}"></h2>
                     <pre th:text="${PostEntity.time}"></pre>
+                    <span style="float: right;" >
+                      <br/>
+                      <a style="color: aliceblue;" th:href="@{/auth/updatePost/}+${currentPostId}">수정</a>
+                        &nbsp;&nbsp;&nbsp;
+                      <a style="color: aliceblue;" th:href="@{/auth/deletePost/}+${currentPostId}">삭제</a>
+                    </span>
                 </div>
             </div>
         </div>

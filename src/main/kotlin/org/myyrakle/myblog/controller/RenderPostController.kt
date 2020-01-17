@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
-class PostController
+class RenderPostController
 {
     @Autowired
     lateinit var postService: PostService
@@ -84,6 +84,7 @@ class PostController
                 "error"
             }
 
+            model.addAttribute("currentPostId", id)
             model.addAttribute("CategoryEntity", categoryEntityOption.get())
 
             "single_post";

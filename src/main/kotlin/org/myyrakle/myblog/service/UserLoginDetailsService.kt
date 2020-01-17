@@ -24,7 +24,7 @@ class UserLoginDetailsService: UserDetailsService
     {
         var authorities = ArrayList<GrantedAuthority>()
 
-        val userEntity = userService.findByUsername(username ?: "")
+        val userEntity = userService.findByUsername(username ?: "").get()
 
         if(userEntity.itsRole == "ADMIN")
         {

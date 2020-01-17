@@ -27,9 +27,6 @@ class PostService
     fun getTop3MainPage(): List<PostEntity>
         = postRepository.findTop3ByOrderByTimeDesc()
 
-    fun getAllPages(pageIndex: Int): Page<PostEntity>
-        = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))
-
     //현재 인덱스의 모든 페이지 긁어옴
     fun getCurrentPage(pageIndex: Int): Page<PostEntity>
         = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))
@@ -48,4 +45,7 @@ class PostService
                 post.categoryID
         )
     }
+
+    fun getLatestPost(): Optional<PostEntity>
+        = postRepository.findFirstByOrderByTimeDesc()
 }

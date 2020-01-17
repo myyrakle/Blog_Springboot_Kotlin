@@ -21,11 +21,13 @@ interface PostRepository: JpaRepository<PostEntity, Int>
 
     fun findAllByCategoryIDOrderByTimeDesc(@Param("category_id") categoryId: Int, pageable: Pageable): Page<PostEntity>
 
-    @Query(value="insert into Post(time, title, body, writer_id, category_id) value(now(), :title, :body :writerId, :categoryId)", nativeQuery = true)
+    @Query(value="insert into Post(time, title, body, writer_id, category_id) value(now(), :title, :body, :writerId, :categoryId)", nativeQuery = true)
     @Transactional
     @Modifying
     fun insertPost(@Param("title") title:String,
                    @Param("body") body: String,
                    @Param("writerId") writerId:Int,
                    @Param("categoryId") categoryId: Int)
+
+    fun findFirstByOrderByTimeDesc(): Optional<PostEntity>
 }
