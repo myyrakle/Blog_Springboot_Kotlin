@@ -1,0 +1,36 @@
+body {
+    text-align: center;
+}
+
+form {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header.div {
+    vertical-align: middle;
+}
+
+#back-button {
+    align-self: flex-start;
+}
+
+#title {
+    font-size: 50pt;
+}
+
+#left {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#input-title, #input-category {
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#submit {
+    float: right;
+}

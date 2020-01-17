@@ -4,16 +4,14 @@ import lombok.Getter
 import lombok.NoArgsConstructor
 import lombok.Setter
 import java.sql.Date
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name="Post")
 data class PostEntity
 (
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "_id")
     var id: Int,
     @Column(name = "time")

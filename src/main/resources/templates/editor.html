@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -30,12 +30,14 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="./css/my-blog.css" rel="stylesheet">
-    <link href="./css/my-edit.css" rel="stylesheet">
+    <link href="/css/my-blog.css" rel="stylesheet">
+    <link href="/css/my-edit.css" rel="stylesheet">
 
 </head>
 
 <body>
+
+<div id="_username" style="display: none" sec:authentication="principal.username"></div>
 
 <!-- Page Header -->
 <header class="masthead">
@@ -46,30 +48,6 @@
 </header>
 <hr>
 
-<script>
-    function onSubmit()
-    {
-        var data = {
-            category: $('#input-category').val(),
-            title: $('#input-title').val(),
-            body: $('.note-editable').html(),
-        };
-
-        $.ajax({
-            url: "/post.do",
-            type: "POST",
-            data: data,
-            success: function(data){
-                console.log("성공", data);
-            },
-            error: function(error){
-                console.log("에러", error);
-            }
-        })
-        //$('form').submit();
-    }
-</script>
-
 <!-- Main Content -->
 <div class="container">
     <div class="row">
@@ -77,8 +55,14 @@
         <form method="POST" action="#">
             <select id="input-category" name="category" required>
                 <option selected disabled>카테고리 선택</option>
-                <option value="카테고리1">카테고리1</option>
-                <option value="카테고리2">카테고리2</option>
+                <optgroup th:each="group:${allCategoryGroups}" th:label="${group.groupName}">
+                    <option th:each="category:${group.categories}" th:value="${category.id}" th:text="${category.categoryName}">
+                        카테고리1
+                    </option>
+                </optgroup>
+                <option th:each="category:${nullGroupCategories}" th:value="${category.id}" th:text="${category.categoryName}">
+                    카테고리1
+                </option>
             </select>
 
             <input id="input-title" type="text" placeholder="제목을 입력하세요." required/>
@@ -108,7 +92,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="./js/my-blog.js"></script>
+<script src="/js/my-blog.js"></script>
 <script>
     $(document).ready(function() {
         $('#summernote').summernote(
@@ -122,6 +106,48 @@
         //에디터 폭에 맞춤
         $('#input-title').width($('.note-editing-area').width()-1);
     });
+
+    function onSubmit()
+    {
+        var data = {
+            writer: $('#_username').text(),
+            category: $('#input-category').val(),
+            title: $('#input-title').val(),
+            body: $('.note-editable').html(),
+        };
+
+        if(data.category == null)
+        {
+            alert("카테고리를 선택해주세요.");
+            return;
+        }
+        else if(data.title == null)
+        {
+            alert("제목을 입력해주세요.");
+            return;
+        }
+        else if(data.body == null)
+        {
+            alert("내용을 입력해주세요.");
+            return;
+        }
+
+        $.ajax({
+            headers:{"[[${_csrf.headerName}]]":"[[${_csrf.token}]]"},
+            url: "/write_post",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "text",
+            success: function(data){
+                console.log("성공", data);
+            },
+            error: function(error){
+                console.log("에러", error);
+            }
+        });
+        //$('form').submit();
+    }
 </script>
 
 </html>

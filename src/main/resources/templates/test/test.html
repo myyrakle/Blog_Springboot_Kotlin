@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script th:inline="text">
+    function doAjax()
+    {
+        $.ajax({
+            //토큰 헤더 이름과 토큰 값을 묶어서 헤더로 전달
+            headers:{"[[${_csrf.headerName}]]":"[[${_csrf.token}]]"},
+            url:"/ajax",
+            method:"POST",
+            data:{"foo":"bar"},
+            success:function(data){
+                alert(data);
+            },
+            error:function(error){
+                console.log(error);
+            }
+        });
+    }
+</script>
+
+<body>
+    <h1>Boom!!</h1>
+    <button onclick="doAjax()">아약스</button>
+</body>
+
+</html>

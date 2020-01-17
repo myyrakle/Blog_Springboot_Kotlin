@@ -1,5 +1,6 @@
 package org.myyrakle.myblog.service
 
+import lombok.Getter
 import org.myyrakle.myblog.configuration.Role
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
+@Getter
 class UserLoginDetailsService: UserDetailsService
 {
     @Autowired

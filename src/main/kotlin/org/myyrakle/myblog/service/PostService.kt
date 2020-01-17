@@ -37,4 +37,15 @@ class PostService
     //해당 인덱스와 카테고리의 전체 페이지 긁어옴
     fun getCurrentPageByCategory(pageIndex:Int, categoryId:Int): Page<PostEntity>
         = postRepository.findAllByCategoryIDOrderByTimeDesc(categoryId, PageRequest.of(pageIndex, PAGE_SIZE))
+
+    //게시글 작성
+    fun writePost(post:PostEntity)
+    {
+        postRepository.insertPost(
+                post.title,
+                post.body,
+                post.writerID,
+                post.categoryID
+        )
+    }
 }
