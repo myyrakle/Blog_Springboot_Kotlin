@@ -73,6 +73,8 @@ class AuthenticatedController
                 )
         )
 
+        categoryService.increasePostCount(jsonObject.getInt("category"))
+
         val result = JSONObject()
         result.put("success", true)
         result.put("postId", postService.getLatestPost().get().id)
@@ -123,6 +125,7 @@ class AuthenticatedController
         if(postEntityOption.isPresent)
         {
             postService.deletePost(postId)
+            categoryService.decreasePostCount(postEntityOption.get().categoryID)
             return "success"
         }
         else

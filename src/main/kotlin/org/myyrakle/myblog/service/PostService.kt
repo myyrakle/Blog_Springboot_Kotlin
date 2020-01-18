@@ -23,7 +23,7 @@ class PostService
     fun getPostById(id: Int): Optional<PostEntity> = postRepository.findById(id)
 
     //메인페이지에 띄울 포스트 3개 획득
-    fun getTop3MainPage(): List<PostEntity> = postRepository.findTop3ByOrderByTimeDesc()
+    fun getTop3PostsInMainPage(): List<PostEntity> = postRepository.findTop3ByOrderByTimeDesc()
 
     //현재 인덱스의 모든 페이지 긁어옴
     fun getCurrentPage(pageIndex: Int): Page<PostEntity> = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))

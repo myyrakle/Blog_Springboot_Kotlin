@@ -2,9 +2,8 @@ package org.myyrakle.myblog.controller
 
 import org.myyrakle.myblog.configuration.BasicSetting
 import org.myyrakle.myblog.service.CategoryService
-import org.myyrakle.myblog.service.PagerBuilder
+import org.myyrakle.myblog.utility.PagerBuilder
 import org.myyrakle.myblog.service.PostService
-import org.myyrakle.myblog.utility.HtmlEscaper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

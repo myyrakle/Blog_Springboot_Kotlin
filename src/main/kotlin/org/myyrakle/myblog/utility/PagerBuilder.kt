@@ -1,4 +1,4 @@
-package org.myyrakle.myblog.service
+package org.myyrakle.myblog.utility
 
 import org.myyrakle.myblog.entity.PostEntity
 import org.springframework.data.domain.Page
@@ -21,7 +21,7 @@ class PagerBuilder(val page: Page<PostEntity>)
         var i = 1;
         while(true)
         {
-            if(pageNumber < i+PAGER_MAX_LENGTH)
+            if(pageNumber < i+ PAGER_MAX_LENGTH)
                 return i;
 
             i+= PAGER_MAX_LENGTH
@@ -33,10 +33,10 @@ class PagerBuilder(val page: Page<PostEntity>)
         val pagerLength = page.totalPages % PAGER_MAX_LENGTH
         val firstNumber = computeFirstNumberOfPager(page.number+1)
         return (firstNumber until (firstNumber+pagerLength)).map {
-                    PageNumber(
-                        it,
-                        page.number+1 == it
-                    )
+            PageNumber(
+                    it,
+                    page.number + 1 == it
+            )
                 }
     }
 }
