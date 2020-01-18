@@ -73,14 +73,12 @@ class RenderPostController
         {
             model.addAllAttributes(BasicSetting.defaultModel);
             val entity = postEntity.get()
-            entity.title = HtmlEscaper(entity.title).toEscapedText()
-            entity.body = HtmlEscaper(entity.body).toEscapedText()
             model.addAttribute("PostEntity", entity)
 
             val categoryEntityOption = categoryService.getCategory(entity.categoryID)
             if(categoryEntityOption.isEmpty)
             {
-                model.addAttribute("ErrorLog", "존재하지 않는 게시글입니다.")
+                model.addAttribute("ErrorLog", "존재하지 않는 포스트입니다.")
                 "error"
             }
 
@@ -91,7 +89,7 @@ class RenderPostController
         }
         else
         {
-            model.addAttribute("ErrorLog", "존재하지 않는 게시글입니다.")
+            model.addAttribute("ErrorLog", "존재하지 않는 포스트입니다.")
             "error"
         }
     }

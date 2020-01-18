@@ -20,23 +20,19 @@ class PostService
         const val PAGE_SIZE = 10;
     }
 
-    fun getPostById(id:Int): Optional<PostEntity>
-        = postRepository.findById(id)
+    fun getPostById(id: Int): Optional<PostEntity> = postRepository.findById(id)
 
     //메인페이지에 띄울 포스트 3개 획득
-    fun getTop3MainPage(): List<PostEntity>
-        = postRepository.findTop3ByOrderByTimeDesc()
+    fun getTop3MainPage(): List<PostEntity> = postRepository.findTop3ByOrderByTimeDesc()
 
     //현재 인덱스의 모든 페이지 긁어옴
-    fun getCurrentPage(pageIndex: Int): Page<PostEntity>
-        = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))
+    fun getCurrentPage(pageIndex: Int): Page<PostEntity> = postRepository.findAllByOrderByTimeDesc(PageRequest.of(pageIndex, PAGE_SIZE))
 
     //해당 인덱스와 카테고리의 전체 페이지 긁어옴
-    fun getCurrentPageByCategory(pageIndex:Int, categoryId:Int): Page<PostEntity>
-        = postRepository.findAllByCategoryIDOrderByTimeDesc(categoryId, PageRequest.of(pageIndex, PAGE_SIZE))
+    fun getCurrentPageByCategory(pageIndex: Int, categoryId: Int): Page<PostEntity> = postRepository.findAllByCategoryIDOrderByTimeDesc(categoryId, PageRequest.of(pageIndex, PAGE_SIZE))
 
-    //게시글 작성
-    fun writePost(post:PostEntity)
+    //포스트 작성
+    fun writePost(post: PostEntity)
     {
         postRepository.insertPost(
                 post.title,
@@ -46,6 +42,15 @@ class PostService
         )
     }
 
+    //포스트 수정
+    fun updatePost(post: PostEntity)
+        = postRepository.save(post)
+
+    //최근에 작성된 포스트 획득
     fun getLatestPost(): Optional<PostEntity>
         = postRepository.findFirstByOrderByTimeDesc()
+
+    //게시글 삭제
+    fun deletePost(postId:Int):Unit
+        = postRepository.deleteById(postId)
 }

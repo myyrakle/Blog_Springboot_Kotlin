@@ -52,7 +52,7 @@
 <div class="container">
     <div class="row">
 
-        <form method="POST" action="#">
+        <form action="no">
             <select id="input-category" name="category" required>
                 <option selected disabled>카테고리 선택</option>
                 <optgroup th:each="group:${allCategoryGroups}" th:label="${group.groupName}">
@@ -85,6 +85,15 @@
 <!-- Footer -->
 <footer th:include="fragments/footer :: footer"></footer>
 
+<div id="onUpdate" th:if="${onUpdate}" style="display: none">
+    <div id="existingId" th:text="${postEntity.id}"></div>
+    <div id="existingCategory" th:text="${postEntity.categoryID}"></div>
+    <div id="existingTitle" th:text="${postEntity.title}"></div>
+    <div id="existingBody" th:text="${postEntity.body}"></div>
+</div>
+
+</div>
+
 </body>
 
 <!-- Bootstrap core JavaScript -->
@@ -94,17 +103,27 @@
 <!-- Custom scripts for this template -->
 <script src="/js/my-blog.js"></script>
 <script>
+    var onUpdateMode = $("onUpdate").html()==undefined;
+
     $(document).ready(function() {
         $('#summernote').summernote(
             {
-                placeholder: '내용을 입력하세요.',
+                placeholder: onUpdateMode ? '' : '내용을 입력하세요.',
                 tabsize: 2,
                 height:500
             }
         );
 
         //에디터 폭에 맞춤
-        $('#input-title').width($('.note-editing-area').width()-1);
+        $('#input-title').width($('.note-editing-area').width());
+
+        //업데이트인 경우 기존 내용 삽입
+        if($('#onUpdate').val() != undefined)
+        {
+            $('#input-title').val($('#existingTitle').html());
+            $('.note-editable').html($('#existingBody').text());
+            $('#input-category').val($('#existingCategory').html());
+        }
     });
 
     function onSubmit()
@@ -134,7 +153,10 @@
 
         $.ajax({
             headers:{"[[${_csrf.headerName}]]":"[[${_csrf.token}]]"},
-            url: "/auth/write_post",
+            url:
+                onUpdateMode
+                    ? "/auth/update_post/"+$("#existingId").html()
+                    : "/auth/write_post",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(data),
@@ -148,7 +170,6 @@
                 console.log("에러", error);
             }
         });
-        //$('form').submit();
     }
 </script>
 

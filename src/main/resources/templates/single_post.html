@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:include="fragments/head :: head"></head>
 
@@ -26,9 +27,15 @@
                     <pre th:text="${PostEntity.time}"></pre>
                     <span style="float: right;" >
                       <br/>
-                      <a style="color: aliceblue;" th:href="@{/auth/updatePost/}+${currentPostId}">수정</a>
+                      <a sec:authorize="isAuthenticated()" style="color: aliceblue;"
+                         th:href="@{/auth/editor/update/}+${currentPostId}">
+                          수정
+                      </a>
                         &nbsp;&nbsp;&nbsp;
-                      <a style="color: aliceblue;" th:href="@{/auth/deletePost/}+${currentPostId}">삭제</a>
+                      <a sec:authorize="isAuthenticated()" style="color: aliceblue;"
+                         href="javascript:deletePost()">
+                          삭제
+                      </a>
                     </span>
                 </div>
             </div>
@@ -59,6 +66,35 @@
 
 <!-- Custom scripts for this template -->
 <script src="/js/my-blog.js"></script>
+
+<script th:inline="text">
+    function deletePost()
+    {
+        $.ajax({
+            headers:{"[[${_csrf.headerName}]]":"[[${_csrf.token}]]"},
+            url: "/auth/delete_post/[[${currentPostId}]]",
+            method: "DELETE",
+            contentType: "application/json",
+            data: null,
+            dataType: "text",
+            success: function(data){
+                console.log("성공");
+                if(data=="success")
+                {
+                    alert("포스트가 삭제되었습니다.");
+                    window.history.back();
+                }
+                else
+                {
+                    alert("삭제에 실패했습니다.");
+                }
+            },
+            error: function(error){
+                console.log("에러", error);
+            }
+        });
+    }
+</script>
 
 </body>
 

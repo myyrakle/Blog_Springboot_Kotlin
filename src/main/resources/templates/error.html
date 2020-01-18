@@ -9,6 +9,11 @@
     <h1 th:text="${ErrorLog}"></h1>
 </body>
 
+<script th:inline="text">
+    alert("[[${ErrorLog}]]");
+    window.location.href = '/';
+</script>
+
 <script th:if="${error}==noCategory">
     alert("존재하지 않는 카테고리입니다.");
     window.location.href = '/';
@@ -18,5 +23,6 @@
     alert("이미 로그인이 된 상태입니다.");
     window.location.href = '/';
 </script>
+
 
 </html>
